@@ -41,11 +41,7 @@
 	<div class="col-auto ml-2">
 		<div class="btn-group workflow-buttons" role="group">
 		<!-- Confirm if role check is added like this -->
-			{% if doc.status == "To Deliver and Bill"%}
-			<button type="button" class="btn btn-info btn-sm dispatch-btn" data-name="{{ doc.name }}">
-				Dispatch Order
-			</button>
-			{% elif doc.status == "To Bill" %}
+			{% if doc.status == "To Bill" %}
 			<button type="button" class="btn btn-success btn-sm mark-delivered-btn" data-name="{{ doc.name }}">
 				Mark as Delivered
 			</button>

@@ -12,6 +12,7 @@ def create_delivery_note(order):
     from erpnext.selling.doctype.sales_order.sales_order import make_delivery_note
 
     dn = make_delivery_note(order)
+    dn.flags.ignore_permissions = True
     dn.insert()
     dn.submit()
 

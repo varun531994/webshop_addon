@@ -16,14 +16,12 @@ def assign_supplier_for_order(doc, method=None):
             AND a.disabled = 0
         """, customer_pincode, as_dict=1
         )
-    
-    print(suppliers)
+
+    # Only 10 Sales Orders can be assigned to a Supplier to manage Workload.
     MAX_ORDERS_PER_SUPPLIER = 10
     selected_supplier = None
-
     for s in suppliers:
         supplier_name = s.supplier
-        print(supplier_name)
         so_count = frappe.db.count(
             "Sales Order",
             {
@@ -31,9 +29,12 @@ def assign_supplier_for_order(doc, method=None):
                 "docstatus": ["!=", 2],  # optional: ignore cancelled
             },
         )
-        print(so_count)
         if so_count < MAX_ORDERS_PER_SUPPLIER:
             selected_supplier = supplier_name
             break
+    
+    # If all suppliers for the given CUstomer location have more than 10 Orders assigned to them, then a Default Supplier is assigned to them as per workflow.
+    if not selected_supplier:
+        selected_supplier = "Default_Supplier"
 
     doc.custom_supplier = selected_supplier

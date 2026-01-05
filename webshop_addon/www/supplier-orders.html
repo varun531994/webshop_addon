@@ -1,0 +1,52 @@
+{% extends "templates/web.html" %}
+
+{% block title %}{{ _("Orders") }}{% endblock %}
+
+{% block page_content %}
+
+<h2 class="mb-4">{{ _("Orders") }}</h2>
+
+{% if orders %}
+<div class="transaction-list">
+
+	{% for doc in orders %}
+	<a href="/supplier-order-details?name={{ doc.name }}" class="transaction-list-item text-decoration-none">
+
+		<div class="row align-items-center">
+
+			{# ---- LEFT: ORDER NAME + DATE ---- #}
+			<div class="col-6 col-md-4">
+				<div class="font-weight-bold">
+					{{ doc.name }}
+				</div>
+				<div class="text-muted small">
+					{{ frappe.utils.format_date(doc.transaction_date, 'long') }}
+				</div>
+			</div>
+
+			{# ---- CENTER: STATUS ---- #}
+			<div class="col-6 col-md-4 text-md-center mt-2 mt-md-0">
+				<span class="indicator-pill {{ doc.indicator_color or 'blue' }}">
+					{{ doc.status }}
+				</span>
+			</div>
+
+			{# ---- RIGHT: TOTAL ---- #}
+			<div class="col-12 col-md-4 text-md-right mt-2 mt-md-0">
+				<span class="font-weight-bold">
+					{{ doc.currency }} {{ doc.grand_total }}
+				</span>
+			</div>
+
+		</div>
+
+	</a>
+	<hr>
+	{% endfor %}
+
+</div>
+{% else %}
+<p class="text-muted">{{ _("No orders found") }}</p>
+{% endif %}
+
+{% endblock %}

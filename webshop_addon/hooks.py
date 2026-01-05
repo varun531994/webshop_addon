@@ -121,9 +121,6 @@ required_apps = ["webshop"]
 # 	"Event": "frappe.desk.doctype.event.event.get_permission_query_conditions",
 # }
 #
-has_permission = {
-	"Sales Invoice": "webshop_addon.templates.pages.order.has_sales_invoice_permission",
-}
 
 # DocType Class
 # ---------------
@@ -168,15 +165,26 @@ fixtures = [
     {"dt": "Property Setter", "filters": {"name": "Address-pincode-reqd"} }
 ]
 
-standard_portal_menu_items = [
+has_permission = {
+    "Sales Order": "webshop_addon.utils.permissions.sales_order_has_permission"
+}
 
-    	{
-		"title": "Orders",
-		"route": "/orders",
-		"reference_doctype": "Sales Order",
-		"role": "Supplier",
-	}
+standard_portal_menu_items = [
+    {
+        "title": "Supplier Orders",
+        "route": "/supplier-orders",
+        "role": "Supplier",
+		"reference_doctype": "Sales Order"
+    }
 ]
+
+website_route_rules = [
+	{"from_route": "/supplier-orders", "to_route": "supplier-orders"}
+]
+
+# Optional: Add to portal menu
+# fixtures = ["Website Menu"]  # Then customize Website Menu doctype
+
 # Scheduled Tasks
 # ---------------
 
