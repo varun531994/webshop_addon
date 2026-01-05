@@ -162,7 +162,8 @@ doc_events = {
 
 fixtures = [
     {"dt": "Custom Field", "filters":{"name":"Sales Order-custom_supplier"}},
-    {"dt": "Property Setter", "filters": {"name": "Address-pincode-reqd"} }
+    {"dt": "Property Setter", "filters": {"name": "Address-pincode-reqd"} },
+    {"dt": "Custom DocPerm", "filters": [["role", "in" ,["Supplier", "Customer"]]]}
 ]
 
 has_permission = {
