@@ -14,8 +14,26 @@ def assign_supplier_for_order(doc, method=None):
             WHERE dl.link_doctype = 'Supplier'
             AND a.pincode = %s
             AND a.disabled = 0
-            LIMIT 1
         """, customer_pincode, as_dict=1
         )
+    
+    print(suppliers)
+    MAX_ORDERS_PER_SUPPLIER = 10
+    selected_supplier = None
 
-    doc.custom_supplier = suppliers[0].supplier if suppliers else None
+    for s in suppliers:
+        supplier_name = s.supplier
+        print(supplier_name)
+        so_count = frappe.db.count(
+            "Sales Order",
+            {
+                "custom_supplier": supplier_name,
+                "docstatus": ["!=", 2],  # optional: ignore cancelled
+            },
+        )
+        print(so_count)
+        if so_count < MAX_ORDERS_PER_SUPPLIER:
+            selected_supplier = supplier_name
+            break
+
+    doc.custom_supplier = selected_supplier
