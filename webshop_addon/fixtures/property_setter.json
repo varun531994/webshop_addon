@@ -1,0 +1,18 @@
+[
+ {
+  "default_value": null,
+  "doc_type": "Address",
+  "docstatus": 0,
+  "doctype": "Property Setter",
+  "doctype_or_field": "DocField",
+  "field_name": "pincode",
+  "is_system_generated": 0,
+  "modified": "2026-01-02 12:54:28.631759",
+  "module": null,
+  "name": "Address-pincode-reqd",
+  "property": "reqd",
+  "property_type": "Check",
+  "row_name": null,
+  "value": "1"
+ }
+]

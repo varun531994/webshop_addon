@@ -8,7 +8,7 @@ app_license = "mit"
 # Apps
 # ------------------
 
-# required_apps = []
+required_apps = ["webshop"]
 
 # Each item in the list will be shown as an app in the apps page
 # add_to_apps_screen = [
@@ -121,9 +121,9 @@ app_license = "mit"
 # 	"Event": "frappe.desk.doctype.event.event.get_permission_query_conditions",
 # }
 #
-# has_permission = {
-# 	"Event": "frappe.desk.doctype.event.event.has_permission",
-# }
+has_permission = {
+	"Sales Invoice": "webshop_addon.templates.pages.order.has_sales_invoice_permission",
+}
 
 # DocType Class
 # ---------------
@@ -145,6 +145,38 @@ app_license = "mit"
 # 	}
 # }
 
+# doctype_js = {
+#     "Sales Order": "public/js/sales_order.js",
+#     "Delivery Note": "public/js/delivery_note.js"
+# }
+
+
+# web_include_js = "/assets/webshop_addon/js/order_page.js"
+
+
+doc_events = {
+    "Sales Order": {
+        "validate": [
+            "webshop_addon.webshop_overrides.assign_supplier_for_order"
+        ],
+    }
+}
+
+
+fixtures = [
+    {"dt": "Custom Field", "filters":{"name":"Sales Order-custom_supplier"}},
+    {"dt": "Property Setter", "filters": {"name": "Address-pincode-reqd"} }
+]
+
+standard_portal_menu_items = [
+
+    	{
+		"title": "Orders",
+		"route": "/orders",
+		"reference_doctype": "Sales Order",
+		"role": "Supplier",
+	}
+]
 # Scheduled Tasks
 # ---------------
 
