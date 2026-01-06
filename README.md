@@ -2,6 +2,14 @@
 
 A custom webshop with additional features like auto supplier assignment, cod delivery support.
 
+### Apps Required
+
+Frappe Framework version 15
+ErpNext 
+Payments
+Webshop
+
+
 ### Installation
 
 You can install this app using the [bench](https://github.com/frappe/bench) CLI:
@@ -11,6 +19,7 @@ cd $PATH_TO_YOUR_BENCH
 bench get-app $URL_OF_THIS_REPO --branch develop
 bench install-app webshop_addon
 ```
+
 
 ### Contributing
 
